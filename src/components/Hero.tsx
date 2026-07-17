@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import CircuitBackdrop from './CircuitBackdrop';
-import logo from '../assets/alpha_premium_logo.png';
+
 import './Hero.css';
 
 type Accent = 'blue' | 'gold';
