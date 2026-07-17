@@ -1,0 +1,149 @@
+.why {
+  background: var(--bg-panel);
+  padding: 140px 24px;
+  border-top: 1px solid var(--border-blue);
+}
+
+.why__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.why__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  line-height: 1.25;
+  color: var(--text);
+  margin: 20px 0 46px;
+  max-width: 520px;
+}
+
+.why__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.why__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.why__check {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--grad-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.why__list strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.why__list p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.why__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.why__globe-svg {
+  width: 100%;
+  max-width: 420px;
+  overflow: visible;
+}
+
+.why__globe-grid {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: globe-spin 34s linear infinite;
+}
+
+.why__globe-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  stroke-width: 1;
+  stroke-opacity: 0.35;
+  animation: globe-pulse 3.4s ease-out infinite;
+}
+
+.why__globe-orbit {
+  transform-box: fill-box;
+  transform-origin: 200px 200px;
+}
+
+.why__globe-orbit--a {
+  animation: globe-spin 9s linear infinite;
+}
+
+.why__globe-orbit--b {
+  animation: globe-spin-rev 6s linear infinite;
+}
+
+.why__globe-orbit--c {
+  animation: globe-spin 14s linear infinite;
+}
+
+.why__globe-arc {
+  stroke-dasharray: 6 10;
+  animation: globe-arc-flow 1.4s linear infinite;
+}
+
+@keyframes globe-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes globe-spin-rev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes globe-pulse {
+  0% { r: 150; stroke-width: 2; stroke-opacity: 0.45; }
+  100% { r: 195; stroke-width: 0.5; stroke-opacity: 0; }
+}
+
+@keyframes globe-arc-flow {
+  to { stroke-dashoffset: -16; }
+}
+
+@media (max-width: 900px) {
+  .why__inner {
+    grid-template-columns: 1fr;
+  }
+  .why__visual {
+    order: -1;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .why {
+    padding: 100px 18px;
+  }
+}

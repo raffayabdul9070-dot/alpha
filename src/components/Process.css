@@ -1,0 +1,348 @@
+/* =============================================
+   PROCESS SECTION
+   ============================================= */
+
+.process {
+  background: var(--bg-panel);
+  padding: 130px 24px 160px;
+  border-top: 1px solid rgba(63, 200, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background ambient glow */
+.process::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(245, 166, 35, 0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.process__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.process__inner .eyebrow {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.process__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  color: var(--text);
+  margin-bottom: 80px;
+}
+
+/* ---- Connector track ---- */
+
+.process__track {
+  position: relative;
+}
+
+.process__line-track {
+  position: absolute;
+  top: 50px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.process__line-fill {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--gold), var(--blue), var(--gold));
+  box-shadow: 0 0 8px rgba(245, 166, 35, 0.4);
+}
+
+/* Step dots ON the connector line */
+.process__dots {
+  position: absolute;
+  top: 43px;
+  left: 10%;
+  right: 10%;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  pointer-events: none;
+}
+
+.process__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #04060c;
+  box-shadow: 0 0 10px rgba(245, 166, 35, 0.7);
+  justify-self: center;
+}
+
+.process__dot--blue {
+  background: var(--blue-bright);
+  box-shadow: 0 0 10px rgba(63, 200, 255, 0.6);
+}
+
+/* ---- Cards grid ---- */
+
+.process__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+/* =============================================
+   PROCESS CARD — luxury
+   ============================================= */
+
+.proc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 20px 28px;
+  border-radius: 22px;
+  background: rgba(12, 20, 36, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(245, 166, 35, 0.15);
+  overflow: hidden;
+  transition:
+    transform 0.18s ease-out,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.proc-card--blue {
+  border-color: rgba(63, 200, 255, 0.15);
+}
+
+.proc-card:hover {
+  border-color: rgba(245, 166, 35, 0.4);
+  box-shadow:
+    0 28px 60px -12px rgba(0, 0, 0, 0.7),
+    0 0 50px -10px rgba(245, 166, 35, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.proc-card--blue:hover {
+  border-color: rgba(63, 200, 255, 0.4);
+  box-shadow:
+    0 28px 60px -12px rgba(0, 0, 0, 0.7),
+    0 0 50px -10px rgba(63, 200, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Ambient inner glow */
+.proc-card__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: radial-gradient(circle at 50% 0%, rgba(245, 166, 35, 0.09), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.proc-card__glow--blue {
+  background: radial-gradient(circle at 50% 0%, rgba(63, 200, 255, 0.09), transparent 60%);
+}
+
+.proc-card:hover .proc-card__glow {
+  opacity: 1;
+}
+
+/* Step number pill */
+.proc-card__top {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.proc-card__step {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: rgba(245, 166, 35, 0.1);
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  color: var(--gold-bright);
+}
+
+.proc-card__step--blue {
+  background: rgba(63, 200, 255, 0.1);
+  border-color: rgba(63, 200, 255, 0.25);
+  color: var(--blue-bright);
+}
+
+/* Icon with ring */
+.proc-card__icon {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 22px;
+  flex-shrink: 0;
+}
+
+.proc-card__icon-inner {
+  position: relative;
+  z-index: 1;
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 166, 35, 0.08);
+  border: 1.5px solid rgba(245, 166, 35, 0.3);
+  box-shadow:
+    0 6px 20px rgba(245, 166, 35, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.proc-card--blue .proc-card__icon-inner {
+  background: rgba(63, 200, 255, 0.08);
+  border-color: rgba(63, 200, 255, 0.3);
+  box-shadow:
+    0 6px 20px rgba(63, 200, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.proc-card:hover .proc-card__icon-inner {
+  transform: scale(1.08) rotate(-4deg);
+  box-shadow: 0 10px 30px rgba(245, 166, 35, 0.25);
+}
+
+.proc-card--blue:hover .proc-card__icon-inner {
+  box-shadow: 0 10px 30px rgba(63, 200, 255, 0.22);
+}
+
+/* Spinning ring decoration */
+.proc-card__icon-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 24px;
+  border: 1px dashed rgba(245, 166, 35, 0.15);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: ring-spin 8s linear infinite;
+}
+
+.proc-card__icon-ring--blue {
+  border-color: rgba(63, 200, 255, 0.15);
+}
+
+.proc-card:hover .proc-card__icon-ring {
+  opacity: 1;
+}
+
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Title */
+.proc-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+/* Body */
+.proc-card__body {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+/* Bottom accent bar */
+.proc-card__bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0 0 22px 22px;
+}
+
+.proc-card__bar--blue {
+  background: linear-gradient(90deg, transparent, var(--blue-bright), transparent);
+}
+
+.proc-card:hover .proc-card__bar {
+  opacity: 1;
+}
+
+/* Ghost watermark */
+.proc-card__ghost {
+  position: absolute;
+  bottom: -10px;
+  right: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 4.5rem;
+  color: rgba(255, 255, 255, 0.025);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+
+@media (max-width: 900px) {
+  .process__line-track,
+  .process__dots {
+    display: none;
+  }
+
+  .process__grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  .process {
+    padding: 100px 18px 120px;
+  }
+
+  .process__grid {
+    grid-template-columns: 1fr;
+  }
+}

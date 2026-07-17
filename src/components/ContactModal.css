@@ -1,0 +1,199 @@
+.cmodal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(2, 4, 8, 0.72);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: cmodal-fade 0.25s ease;
+}
+
+@keyframes cmodal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cmodal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: linear-gradient(165deg, var(--surface-raised), var(--bg-panel));
+  border: 1px solid var(--border-blue);
+  border-radius: 18px;
+  padding: 38px 34px 32px;
+  box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.75), 0 0 60px -20px rgba(63, 200, 255, 0.2);
+  animation: cmodal-rise 0.35s var(--ease-out);
+}
+
+@keyframes cmodal-rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cmodal__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.cmodal__close:hover {
+  color: var(--text);
+  border-color: var(--border-blue);
+}
+
+.cmodal__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text);
+  margin: 10px 0 8px;
+}
+
+.cmodal__sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 26px;
+  line-height: 1.5;
+}
+
+.cmodal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cmodal__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.cmodal__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.cmodal__form input,
+.cmodal__form select,
+.cmodal__form textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 13px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.cmodal__form input::placeholder,
+.cmodal__form textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.cmodal__form input:focus,
+.cmodal__form select:focus,
+.cmodal__form textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: rgba(63, 200, 255, 0.05);
+}
+
+.cmodal__form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239aa7bd' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+}
+
+.cmodal__form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.cmodal__submit {
+  margin-top: 6px;
+  padding: 15px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--bg-deep);
+  background: var(--grad-gold);
+  border-radius: 8px;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.cmodal__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -12px rgba(245, 166, 35, 0.5);
+}
+
+.cmodal__note {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.cmodal__success {
+  text-align: center;
+  padding: 18px 4px 4px;
+}
+
+.cmodal__success-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 166, 35, 0.08);
+  border: 1px solid var(--border-gold);
+}
+
+.cmodal__success h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.cmodal__success p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+
+.cmodal__success .cmodal__submit {
+  width: 100%;
+}
+
+@media (max-width: 520px) {
+  .cmodal {
+    padding: 30px 22px 26px;
+  }
+  .cmodal__row {
+    grid-template-columns: 1fr;
+  }
+}

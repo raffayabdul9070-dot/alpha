@@ -1,0 +1,115 @@
+:root {
+  --bg-deep: #04060c;
+  --bg-panel: #070b14;
+  --bg-panel-2: #0b1220;
+  --surface: #0e1626;
+  --surface-raised: #131e33;
+  --text: #ffffff;
+  --text-muted: #9aa7bd;
+  --text-faint: #566179;
+
+  --blue: #3fc8ff;
+  --blue-bright: #8fe3ff;
+  --blue-dim: #1a5f80;
+
+  --gold: #f5a623;
+  --gold-bright: #ffcf5c;
+  --gold-deep: #ff7a1a;
+
+  --border-blue: rgba(63, 200, 255, 0.16);
+  --border-gold: rgba(245, 166, 35, 0.22);
+  --border: rgba(255, 255, 255, 0.08);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Outfit', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --grad-gold: linear-gradient(120deg, var(--gold-bright), var(--gold) 55%, var(--gold-deep));
+  --grad-blue: linear-gradient(120deg, var(--blue-bright), var(--blue));
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--gold);
+  color: #04060c;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--blue-dim);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.grad-gold-text {
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grad-blue-text {
+  background: var(--grad-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
