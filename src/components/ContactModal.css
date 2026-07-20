@@ -126,6 +126,18 @@
   background-position: right 13px center;
 }
 
+/* Ensure dropdown text and options are visible on dark backgrounds */
+.cmodal__form select,
+.cmodal__form select option {
+  color: var(--text);
+  background: transparent;
+}
+
+/* Some browsers use a default white background for option lists — force darker background where possible */
+.cmodal__form select option {
+  background-color: var(--surface-raised);
+}
+
 .cmodal__form textarea {
   resize: vertical;
   min-height: 80px;

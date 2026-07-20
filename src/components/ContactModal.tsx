@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './ContactModal.css';
+import { db } from "../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 interface Props {
   open: boolean;
@@ -7,8 +9,8 @@ interface Props {
 }
 
 const TIME_SLOTS = [
-  '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
-  '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM',
+  '9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM',
+  '1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM'
 ];
 
 function todayISO() {
@@ -35,148 +37,105 @@ export default function ContactModal({ open, onClose }: Props) {
     } else {
       document.body.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [open]);
 
   useEffect(() => {
-    function onKey(e: KeyboardEvent) {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-    }
+    };
     if (open) window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
   if (!open) return null;
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    try {
+      await addDoc(collection(db, "meetingRequests"), {
+        name,
+        email,
+        company,
+        date,
+        time,
+        message,
+        createdAt: serverTimestamp(),
+      });
 
-    const subject = `Meeting request — ${name || 'New client'}`;
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      company ? `Company: ${company}` : null,
-      date ? `Preferred date: ${date}` : null,
-      time ? `Preferred time: ${time}` : null,
-      '',
-      'Project details:',
-      message || '(none provided)',
-    ]
-      .filter(Boolean)
-      .join('\n');
-
-    const mailto = `mailto:hello@alpha.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    setSent(true);
+      setSent(true);
+      setName('');
+      setEmail('');
+      setCompany('');
+      setDate('');
+      setTime('');
+      setMessage('');
+    } catch (err) {
+      console.error(err);
+      alert("Failed to submit meeting request.");
+    }
   }
 
   return (
-    <div className="cmodal__overlay" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+    <div className="cmodal__overlay" onMouseDown={(e)=>e.target===e.currentTarget&&onClose()}>
       <div className="cmodal" role="dialog" aria-modal="true" aria-label="Schedule a meeting">
-        <button className="cmodal__close" onClick={onClose} aria-label="Close">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
-        </button>
+        <button className="cmodal__close" onClick={onClose}>✕</button>
 
         {sent ? (
           <div className="cmodal__success">
-            <div className="cmodal__success-icon">
-              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-                <circle cx="13" cy="13" r="12" stroke="#f5a623" strokeWidth="1.4" />
-                <path d="M7.5 13.4l3.4 3.4L18.5 8.6" stroke="#f5a623" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <h3>Your email client is opening</h3>
-            <p>We've prefilled your request — just hit send. We reply within one business day.</p>
-            <button className="cmodal__submit" type="button" onClick={onClose}>
-              Done
-            </button>
+            <h3>Meeting Request Sent</h3>
+            <p>Thank you! Your request has been submitted successfully. We will contact you soon.</p>
+            <button className="cmodal__submit" onClick={onClose}>Done</button>
           </div>
         ) : (
           <>
             <p className="eyebrow">Let's talk</p>
             <h3 className="cmodal__title">Schedule a meeting</h3>
-            <p className="cmodal__sub">Tell us a bit about the project and when's good for a call.</p>
+            <p className="cmodal__sub">Tell us about your project.</p>
 
             <form className="cmodal__form" onSubmit={handleSubmit}>
               <div className="cmodal__row">
                 <label>
                   <span>Name</span>
-                  <input
-                    ref={firstFieldRef}
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Jordan Lee"
-                  />
+                  <input ref={firstFieldRef} required value={name} onChange={e=>setName(e.target.value)} />
                 </label>
                 <label>
                   <span>Email</span>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@company.com"
-                  />
+                  <input type="email" required value={email} onChange={e=>setEmail(e.target.value)} />
                 </label>
               </div>
 
               <label>
-                <span>Company (optional)</span>
-                <input
-                  type="text"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  placeholder="Acme Inc."
-                />
+                <span>Company</span>
+                <input value={company} onChange={e=>setCompany(e.target.value)} />
               </label>
 
               <div className="cmodal__row">
                 <label>
-                  <span>Preferred date</span>
-                  <input
-                    type="date"
-                    required
-                    min={todayISO()}
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
+                  <span>Date</span>
+                  <input type="date" min={todayISO()} required value={date} onChange={e=>setDate(e.target.value)} />
                 </label>
+
                 <label>
-                  <span>Preferred time</span>
-                  <select required value={time} onChange={(e) => setTime(e.target.value)}>
-                    <option value="" disabled>
-                      Select a slot
-                    </option>
-                    {TIME_SLOTS.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
+                  <span>Time</span>
+                  <select required value={time} onChange={e=>setTime(e.target.value)}>
+                    <option value="">Select a slot</option>
+                    {TIME_SLOTS.map(t=><option key={t}>{t}</option>)}
                   </select>
                 </label>
               </div>
 
               <label>
-                <span>Project details</span>
-                <textarea
-                  rows={4}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="What are you trying to build?"
-                />
+                <span>Project Details</span>
+                <textarea rows={4} value={message} onChange={e=>setMessage(e.target.value)} />
               </label>
 
               <button className="cmodal__submit" type="submit">
-                Request meeting
+                Request Meeting
               </button>
+
               <p className="cmodal__note">
-                Opens your email client with these details prefilled — nothing is sent automatically.
+                Your meeting request will be securely submitted to our team.
               </p>
             </form>
           </>

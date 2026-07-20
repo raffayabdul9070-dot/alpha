@@ -1,7 +1,7 @@
 import logo from '../assets/alpha-logo.png';
 import './Footer.css';
 
-export default function Footer() {
+export default function Footer({ onOpenContact }: { onOpenContact?: () => void }) {
   const year = new Date().getFullYear();
   return (
     <footer className="footer">
@@ -14,7 +14,19 @@ export default function Footer() {
           <a href="#services">Services</a>
           <a href="#stack">Stack</a>
           <a href="#process">Process</a>
-          <a href="#contact">Contact</a>
+          {onOpenContact ? (
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenContact();
+              }}
+            >
+              Contact
+            </a>
+          ) : (
+            <a href="#contact">Contact</a>
+          )}
         </div>
       </div>
     </footer>

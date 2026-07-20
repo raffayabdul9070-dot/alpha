@@ -26,7 +26,7 @@ export default function App() {
         <Process />
         <Contact onOpenContact={openContact} />
       </main>
-      <Footer />
+      <Footer onOpenContact={openContact} />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   );

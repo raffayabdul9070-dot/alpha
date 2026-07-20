@@ -47,9 +47,23 @@ export default function Header({ onOpenContact }: { onOpenContact: () => void })
 
         <nav className="header__nav" aria-label="Primary">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className={active === l.href ? 'is-active' : ''}>
-              {l.label}
-            </a>
+            l.href === '#contact' ? (
+              <a
+                key={l.href}
+                href={l.href}
+                className={active === l.href ? 'is-active' : ''}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenContact();
+                }}
+              >
+                {l.label}
+              </a>
+            ) : (
+              <a key={l.href} href={l.href} className={active === l.href ? 'is-active' : ''}>
+                {l.label}
+              </a>
+            )
           ))}
         </nav>
 
@@ -71,9 +85,22 @@ export default function Header({ onOpenContact }: { onOpenContact: () => void })
       {open && (
         <div className="header__mobile" role="menu">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
-              {l.label}
-            </a>
+            l.href === '#contact' ? (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => {
+                  setOpen(false);
+                  onOpenContact();
+                }}
+              >
+                {l.label}
+              </a>
+            ) : (
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
+                {l.label}
+              </a>
+            )
           ))}
           <button
             className="header__mobile-cta"
