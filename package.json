@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "chmod +x node_modules/.bin/tsc && npx tsc -b && vite build",
+    "build": "node node_modules/typescript/bin/tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
